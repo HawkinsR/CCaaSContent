@@ -1,0 +1,9 @@
+graph LR
+    A["OrderController<br/>(REST Endpoint)"] -->|"convertAndSend()"| B["OrderProducer<br/>(@Service)"]
+    B -->|"JmsTemplate"| C["ActiveMQ Broker<br/>(In-Memory Queue)"]
+    C -->|"@JmsListener"| D["OrderConsumer<br/>(@Component)"]
+
+    style A fill:#4a90d9,color:#fff
+    style B fill:#7ed321,color:#fff
+    style C fill:#f5a623,color:#fff
+    style D fill:#9b59b6,color:#fff

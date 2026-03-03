@@ -1,0 +1,25 @@
+graph TD
+    A["HTTP Request"] --> B["DispatcherServlet"]
+    B --> C["@RestController"]
+    C --> D["@Service"]
+    D --> E["@Repository"]
+    E --> F["Database"]
+    F --> E
+    E --> D
+    D --> C
+    C --> B
+    B --> G["HTTP Response (JSON)"]
+
+    subgraph Spring ApplicationContext
+        C
+        D
+        E
+    end
+
+    style A fill:#4a90d9,color:#fff
+    style G fill:#4a90d9,color:#fff
+    style B fill:#f5a623,color:#fff
+    style C fill:#7ed321,color:#fff
+    style D fill:#7ed321,color:#fff
+    style E fill:#7ed321,color:#fff
+    style F fill:#9b59b6,color:#fff

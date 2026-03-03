@@ -1,0 +1,17 @@
+graph TD
+    A["hibernate.cfg.xml"] -->|"reads"| B["Configuration Object"]
+    B -->|"builds (expensive)"| C["SessionFactory (Singleton)"]
+    C -->|"openSession()"| D["Session 1"]
+    C -->|"openSession()"| E["Session 2"]
+    
+    subgraph Unit of Work
+        D --> F["Transaction"]
+        F --> G["Persist/Get/Merge/Remove"]
+        G --> H["Commit / Rollback"]
+    end
+
+    style A fill:#f5a623,color:#fff
+    style C fill:#9b59b6,color:#fff
+    style D fill:#4a90d9,color:#fff
+    style E fill:#4a90d9,color:#fff
+    style F fill:#7ed321,color:#fff

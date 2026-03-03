@@ -1,0 +1,26 @@
+graph LR
+    subgraph Java World
+        A[Employee Object<br/>id=1, name='Alice']
+        B[Department Object<br/>id=10, name='Engineering']
+        A -- "belongs to" --> B
+    end
+
+    subgraph Hibernate ORM
+        direction TB
+        C((Mapping Layer))
+    end
+
+    subgraph Relational Database
+        D[(EMPLOYEE Table<br/>id, name, dept_id)]
+        E[(DEPARTMENT Table<br/>id, name)]
+        D -- "foreign key" --> E
+    end
+
+    Java World <-->|Translation| C
+    C <-->|SQL Queries| Relational Database
+
+    style A fill:#4a90d9,color:#fff
+    style B fill:#4a90d9,color:#fff
+    style C fill:#f5a623,color:#fff
+    style D fill:#7ed321,color:#fff
+    style E fill:#7ed321,color:#fff

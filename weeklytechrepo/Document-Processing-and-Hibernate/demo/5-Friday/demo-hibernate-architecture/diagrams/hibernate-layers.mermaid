@@ -1,0 +1,26 @@
+graph TD
+    subgraph Java Application Code
+        A["Controllers / Services"] --> B["Data Access Objects (DAOs)"]
+    end
+
+    subgraph Hibernate ORM Layer
+        B -->|"uses"| C["Session (Short-lived, L1 Cache)"]
+        B -->|"gets session from"| D["SessionFactory (Heavy, L2 Cache)"]
+        D -->|"creates"| C
+        C -->|"manages"| E["Transaction API"]
+        C -->|"builds queries"| F["Query / Criteria API"]
+    end
+
+    subgraph Infrastructure
+        E --> G["JDBC Connection Pool"]
+        F --> G
+        G --> H[("Relational Database")]
+    end
+
+    style A fill:#4a90d9,color:#fff
+    style B fill:#4a90d9,color:#fff
+    style C fill:#f5a623,color:#fff
+    style D fill:#9b59b6,color:#fff
+    style E fill:#f5a623,color:#fff
+    style F fill:#f5a623,color:#fff
+    style H fill:#7ed321,color:#fff

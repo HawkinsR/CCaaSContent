@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <!-- The <menu> tag automatically listens for single-digit DTMF input -->
+    <menu id="MainMenu">
+    
+        <prompt>
+            For Reservations, press 1. 
+            For Customer Service, press 2. 
+            For Baggage Claim, press 3.
+        </prompt>
+        
+        <!-- The 'next' attribute corresponds to an ID in the document -->
+        <choice dtmf="1" next="#Reservations"/>
+        <choice dtmf="2" next="#CustomerService"/>
+        <choice dtmf="3" next="#BaggageClaim"/>
+
+    </menu>
+
+    <!-- ============================================== -->
+    <!-- TARGET FORMS -->
+    <!-- ============================================== -->
+    
+    <form id="Reservations">
+        <block>
+            <prompt>Transferring to Reservations.</prompt>
+            <exit />
+        </block>
+    </form>
+    
+    <form id="CustomerService">
+        <block>
+            <prompt>Transferring to Customer Service.</prompt>
+            <exit />
+        </block>
+    </form>
+    
+    <form id="BaggageClaim">
+        <block>
+            <prompt>Transferring to Baggage Claim.</prompt>
+            <exit />
+        </block>
+    </form>
+
+</vxml>

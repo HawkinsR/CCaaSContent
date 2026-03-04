@@ -1,0 +1,28 @@
+sequenceDiagram
+    autonumber
+    actor Customer as Customer (Cell Phone)
+    participant PSTN as Telecom Carrier (PSTN)
+    participant CCaaS as CCaaS Platform (AWS/Genesys)
+    participant DB as Backend CRM / Database
+    actor Agent as Agent (Web Browser)
+
+    Customer->>PSTN: Dials 1-800-555-0199
+    PSTN->>CCaaS: SIP INVITE (Incoming Call over Internet)
+    CCaaS-->>PSTN: 100 Trying / 200 OK (Call Established)
+    
+    activate CCaaS
+    CCaaS->>Customer: Plays "Welcome to our Support Center"
+    CCaaS->>Customer: Plays "Please enter your Account Number"
+    Customer->>CCaaS: Keys in "12345" (DTMF Tones)
+    
+    CCaaS->>DB: API Data Dip (Get user by Account 12345)
+    DB-->>CCaaS: Returns Customer Profile (VIP Status: True)
+    
+    Note right of CCaaS: Routing Decision:<br/>Push to High Priority Queue
+    
+    CCaaS->>Agent: Rings WebRTC Softphone
+    CCaaS->>Agent: Triggers CRM "Screen Pop" with Profile
+    Agent-->>CCaaS: Accepts Call
+    
+    Note over Customer,Agent: Two-Way Audio Established (RTP)
+    deactivate CCaaS

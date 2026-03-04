@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <form id="PizzaOrderForm">
+
+        <!-- 1. Native Telecom Grammar -->
+        <field name="phoneNumber" type="digits?length=10">
+            <prompt>
+                Welcome to the Automated Pizza Hotline. 
+                Please enter your 10 digit phone number.
+            </prompt>
+        </field>
+
+        <!-- 2. Custom Speech Recognition Grammar -->
+        <field name="pizzaSize">
+            <prompt>
+                Would you like a small, medium, or large pizza?
+            </prompt>
+            <grammar version="1.0" root="size_rule">
+                <rule id="size_rule" scope="public">
+                    <one-of>
+                        <item>small</item>
+                        <item>medium</item>
+                        <item>large</item>
+                    </one-of>
+                </rule>
+            </grammar>
+        </field>
+
+        <!-- 3. Final Form Validation & Submission -->
+        <filled>
+            
+            <prompt>
+                Thank you! You ordered a <value expr="pizzaSize"/> pizza. 
+                Our driver will call <value expr="phoneNumber"/> upon arrival.
+            </prompt>
+            
+            <submit next="https://api.pizzachain.com/orders" 
+                    namelist="phoneNumber pizzaSize" 
+                    method="post" />
+
+        </filled>
+
+    </form>
+</vxml>

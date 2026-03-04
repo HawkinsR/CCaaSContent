@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <!-- 
+      This form's goal is to accurately collect exactly 5 digits from the caller 
+    -->
+    <form id="LocalSearchForm">
+
+        <!-- 
+           The <field> tag stops execution and waits for user input.
+           The 'type' attribute leverages a built-in grammar on the Telecom server.
+           It restricts the user to Digits, and enforces a length of exactly 5.
+        -->
+        <field name="zipCode" type="digits?length=5">
+        
+            <prompt>
+                Please enter your five digit zip code to find the nearest store.
+            </prompt>
+
+            <!-- 
+               The <filled> block ONLY executes if the grammatical constraints 
+               of the surrounding <field> are met. It acts as our success callback.
+            -->
+            <filled>
+            
+                <!-- Let the caller know we succeeded -->
+                <prompt>
+                    Searching our database for zip code <value expr="zipCode"/>. Please wait.
+                </prompt>
+
+                <!-- 
+                   The <submit> tag acts exactly like an HTML Form Submission or fetch().
+                   It pauses the VXML execution, performs an HTTP request to the Backend API,
+                   passes the variable via URL parameter, and waits for the API to return 
+                   more VoiceXML code back to the telecom server.
+                -->
+                <submit next="https://api.mycompany.com/storeLocator" namelist="zipCode" method="get" />
+                
+            </filled>
+
+        </field>
+
+    </form>
+
+</vxml>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <!-- The <menu> tag automatically listens for single-digit DTMF input -->
+    <menu id="MainMenu">
+    
+        <!-- TODO: Add a prompt to announce the menu options -->
+        
+        
+        <!-- TODO: Add three <choice> tags mapping dtmf "1", "2", and "3" to the forms below -->
+        
+        
+    </menu>
+
+    
+    <!-- ============================================== -->
+    <!-- TARGET FORMS -->
+    <!-- ============================================== -->
+    
+    <!-- TODO: Define the Reservations form -->
+    <form id="Reservations">
+        <!-- Add a block to play the confirmation prompt and exit -->
+    </form>
+    
+    <!-- TODO: Define the Customer Service form -->
+    
+    <!-- TODO: Define the Baggage Claim form -->
+
+</vxml>

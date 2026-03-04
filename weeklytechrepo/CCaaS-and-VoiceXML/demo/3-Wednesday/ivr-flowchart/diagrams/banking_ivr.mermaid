@@ -1,0 +1,23 @@
+graph TD
+    Start((Incoming Call)) --> WelcomePrompt
+    WelcomePrompt["Play: Welcome to Generic Bank.<br>For English, press 1.<br>Para Español, oprima el dos."] --> LanguageSelect{Input: Language}
+    
+    LanguageSelect -- 1 --> MainMenu
+    LanguageSelect -- 2 --> SpanishMainMenu
+    LanguageSelect -- Invalid/Timeout --> MainMenu
+    
+    MainMenu["Play: Press 1 for Checking,<br>2 for Mortgages,<br>or 0 for an Agent."] --> GetInput{Input: Menu Choice}
+    
+    GetInput -- 1 --> AuthPrompt["Play: Please enter your 4-digit PIN."]
+    GetInput -- 2 --> TransferMortgage[Transfer to Mortgage Queue]
+    GetInput -- 0 --> TransferGeneral[Transfer to General Queue]
+    GetInput -- Invalid --> MainMenu
+    
+    AuthPrompt --> CheckAuth{Verify PIN}
+    CheckAuth -- Success --> BalancePlayback["Play: Your balance is $1,000."]
+    CheckAuth -- Fail (Attempt < 3) --> AuthPrompt
+    CheckAuth -- Fail (Attempt 3) --> TransferGeneral
+    
+    BalancePlayback --> End((Hang Up))
+    TransferMortgage --> End
+    TransferGeneral --> End

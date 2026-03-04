@@ -1,0 +1,21 @@
+graph TD
+    Start((Incoming Call)) --> WelcomePrompt["Play: Thank you for calling Global Airlines."]
+    
+    WelcomePrompt --> MainMenu{"Input:<br>1 for Flight Status<br>2 for New Flight<br>0 for Agent"}
+    
+    MainMenu -- 1 --> AskFlightNumber["Play: Enter your 3-digit flight number."]
+    MainMenu -- 2 --> TransferBooking[Transfer to Booking Queue]
+    MainMenu -- 0 --> TransferSupport[Transfer to Support Agent]
+    MainMenu -- Invalid --> MainMenu
+    
+    AskFlightNumber --> ValidateFlightNumber{Validate: Is 3 digits?}
+    
+    ValidateFlightNumber -- Yes/Valid --> PlayStatus["Play: Flight is on time."]
+    ValidateFlightNumber -- No/Error --> PlayError["Play: I did not understand that."]
+    
+    -- The Error handling loop sends them back to the prompt
+    PlayError --> AskFlightNumber
+    
+    PlayStatus --> End((Hang up))
+    TransferBooking --> End
+    TransferSupport --> End

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <!-- The single form encapsulating the whole order process -->
+    <form id="PizzaOrderForm">
+
+        <!-- TODO: Create a field named 'phoneNumber' that enforces a 10-digit length constraint -->
+        
+
+
+        <!-- TODO: Create a field named 'pizzaSize'. -->
+        <field name="pizzaSize">
+            
+            <prompt>
+                Would you like a small, medium, or large pizza?
+            </prompt>
+
+            <!-- 
+               This grammar tells the remote Speech Recognition Engine to only 
+               accept these specific acoustic inputs. 
+            -->
+            <grammar version="1.0" root="size_rule">
+                <rule id="size_rule" scope="public">
+                    <one-of>
+                        <item>small</item>
+                        <item>medium</item>
+                        <item>large</item>
+                    </one-of>
+                </rule>
+            </grammar>
+            
+        </field>
+
+        <!-- TODO: Create a <filled> block! -->
+        <!-- 
+           When placed loosely in the Form (not inside a specific Field), 
+           it waits for ALL fields to be fulfilled before triggering. 
+        -->
+        
+            <!-- Play the confirmation message reading back the two variable values -->
+            
+            <!-- Submit the order to: https://api.pizzachain.com/orders -->
+
+    </form>
+</vxml>

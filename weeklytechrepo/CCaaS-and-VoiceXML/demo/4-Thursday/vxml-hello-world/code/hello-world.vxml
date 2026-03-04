@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml">
+
+    <!-- 
+      A VXML document is composed of one or more dialogs. 
+      The most common dialog is a <form>. 
+    -->
+    <form id="HelloWorldForm">
+
+        <!-- 
+          A <block> executes procedural actions sequentially. 
+          It does not stop to wait for user input. 
+        -->
+        <block>
+        
+            <!-- 
+              The <prompt> tag tells the Text-To-Speech (TTS) engine 
+              to play this text audio out to the caller. 
+            -->
+            <prompt>
+                Hello World. Welcome to Voice XML engineering!
+            </prompt>
+
+            <!-- Disconnects the call -->
+            <exit />
+            
+        </block>
+        
+    </form>
+
+</vxml>

@@ -1,0 +1,49 @@
+name: Python CI Pipeline
+
+# 1. THE TRIGGER
+# When should this workflow run?
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 2. THE JOBS
+# What work needs to be done?
+jobs:
+  build-and-test:
+    # 3. THE RUNNER
+    # Spin up a fresh Ubuntu Linux Virtual Machine in the Cloud
+    runs-on: ubuntu-latest
+
+    # 4. THE STEPS
+    # The sequence of commands to execute on the Ubuntu machine
+    steps:
+      # Step A: Download our repository's code onto the runner
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step B: Install a specific version of Python on the runner
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      # Step C: Install dependencies (assuming a requirements.txt exists)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest flake8
+
+      # Step D: Run the Linter (Static Analysis)
+      # Fails the build if there are severe syntax errors
+      - name: Lint with flake8
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      # Step E: Run the Unit Tests
+      # Fails the build if any assert statements fail
+      - name: Test with pytest
+        run: |
+          pytest

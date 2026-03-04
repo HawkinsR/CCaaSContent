@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  cassandra-node:
+    # Pulls the official, latest version from Docker Hub
+    image: cassandra:latest
+    # Assign a friendly name so we don't have to interact with a random hash string
+    container_name: cassandra-node
+    # Map the host port to the container port (CQL Native Transport)
+    ports:
+      - "9042:9042"
+    # Basic environment variables to configure JVM memory for local testing
+    environment:
+      - CASSANDRA_CLUSTER_NAME=DemoCluster
+      - MAX_HEAP_SIZE=1024M
+      - HEAP_NEWSIZE=200M

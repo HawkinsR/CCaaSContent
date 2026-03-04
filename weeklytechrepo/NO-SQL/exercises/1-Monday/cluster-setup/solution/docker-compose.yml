@@ -1,0 +1,29 @@
+version: '3'
+services:
+  # The Primary Node
+  node-1:
+    image: cassandra:latest
+    container_name: node-1
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=TrainingCluster
+      # Explicitly broadcast its IP address so node-2 can find it by hostname
+      - CASSANDRA_BROADCAST_ADDRESS=node-1
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    
+  # The Replica Node
+  node-2:
+    image: cassandra:latest
+    container_name: node-2
+    # We DO NOT map a host port for node-2. App talks to node-1.
+    environment:
+      - CASSANDRA_CLUSTER_NAME=TrainingCluster
+      # Point to the primary node to bootstrap the cluster connection
+      - CASSANDRA_SEEDS=node-1
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    # Optional: Wait for node-1 to be running before attempting to boot
+    depends_on:
+      - node-1

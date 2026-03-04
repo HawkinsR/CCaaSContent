@@ -1,0 +1,3 @@
+[DRAFT YOUR PROMPT HERE]
+
+Act as a Senior Frontend Developer...

@@ -1,0 +1,22 @@
+```mermaid
+graph TD
+    Client[Web Browser Client]
+
+    %% You must add the API Gateway component here.
+    
+    %% Separate the 5 Microservices below.
+    subgraph Microservices Layer
+        UserService
+        CatalogService
+        CartService
+        PaymentService
+        NotificationService
+    end
+
+    %% You must create independent Databases for the services below.
+    subgraph Data Layer
+        
+    end
+
+    %% Draw arrows correctly representing flow.
+```

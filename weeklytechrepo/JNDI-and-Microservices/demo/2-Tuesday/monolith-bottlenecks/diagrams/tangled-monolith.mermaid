@@ -1,0 +1,34 @@
+```mermaid
+graph TD
+    Client[Web Browser Client]
+
+    subgraph Massive Monolithic Application Server
+        UI[Presentation Layer]
+        Auth[Authentication Package]
+        Inventory[Inventory Management Package]
+        Billing[Billing & Payment Package]
+        Shipping[Shipping Logistics Package]
+        
+        UI <--> Auth
+        UI <--> Inventory
+        UI <--> Billing
+        Inventory <--> Billing
+        Inventory <--> Shipping
+        Billing <--> Shipping
+        Auth <--> Shipping
+    end
+
+    subgraph Single Relational Database
+        DB[(Enterprise Database)]
+    end
+
+    Client <--> UI
+    Auth <--> DB
+    Inventory <--> DB
+    Billing <--> DB
+    Shipping <--> DB
+
+    classDef danger fill:#ffcccc,stroke:#ff0000,stroke-width:2px;
+    class Billing danger
+    class DB danger
+```
